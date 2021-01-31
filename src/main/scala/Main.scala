@@ -1,15 +1,12 @@
 package com.stocker.api
 
+import com.stocker.api.client.PolygonClient
+
 object Main extends App {
 
-  val calculator = new Calculator
-  println(s"Computing ... ${calculator.compute(5)}")
+  val client = new PolygonClient
 
-}
-
-class Calculator {
-
-  def compute(x: Int) : Int = {
-    x * x
-  }
+  val ticker = "tsla"
+  // response.body: by default read into an Either[String, String] to indicate failure or success
+  println(client.fetchDetailsForTicker(ticker))
 }
