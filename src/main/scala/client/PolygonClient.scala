@@ -3,9 +3,9 @@ package client
 
 import secrets.Keys
 
-import sttp.client3.{HttpURLConnectionBackend, Response, UriContext, basicRequest}
+import sttp.client3.Response
 
-class PolygonClient {
+object PolygonClient extends Client {
 
   private val apiKey = s"apiKey=${Keys.apiKey}"
   private val baseUrl = s"https://api.polygon.io/v1/meta/symbols"
@@ -35,13 +35,5 @@ class PolygonClient {
 
     fetch(baseUrl + urlSuffix)
 
-  }
-
-  private def fetch(url: String) : Response[Either[String, String]] = {
-
-    val request = basicRequest.get(uri"$url")
-
-    val backend = HttpURLConnectionBackend()
-    request.send(backend)
   }
 }
