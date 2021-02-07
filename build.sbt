@@ -6,5 +6,7 @@ scalaVersion := "2.13.4"
 
 idePackagePrefix := Some("com.stocker.api")
 
-libraryDependencies +=
-  "com.softwaremill.sttp.client3" %% "core" % "3.1.0"
+libraryDependencies ++= Seq(
+  "com.softwaremill.sttp.client3" %% "core" % "3.1.0",
+  "dev.zio" %% "zio" % "1.0.4-2"
+)
