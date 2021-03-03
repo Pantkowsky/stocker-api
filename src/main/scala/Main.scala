@@ -1,8 +1,9 @@
 package com.stocker.api
 
-import com.stocker.api.client.Client
-import zio.console.{getStrLn, putStr, putStrLn}
-import zio.{ExitCode, URIO, ZIO}
+import client.Client
+
+import zio.console.putStr
+import zio.{ExitCode, ZIO}
 
 object Main extends zio.App {
 
@@ -14,7 +15,7 @@ object Main extends zio.App {
   val logic =
     for {
       result <- Client.fetch(ticker)
-      _ <- putStr(result.noSpaces)
+      _ <- putStr(result.toString.replaceAll("[,]", "$0 "))
     } yield()
 
 }
