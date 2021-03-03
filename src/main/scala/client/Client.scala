@@ -29,7 +29,7 @@ object Client extends SttpApi with SttpCirceApi {
   val live: ZLayer[Any, Throwable, Has[Backend]] =
     createBackend.toLayer
 
-  def fetch(symbol: String) : ZIO[Has[Backend], Throwable, Json] = {
+  def fetch(symbol: String) : ZIO[Has[Backend], Throwable, Company] = {
 
     val url = buildUrl(symbol)
 
@@ -38,8 +38,7 @@ object Client extends SttpApi with SttpCirceApi {
       response <- {
         implicit val b: Backend = backend
 
-        // model classes go into asJson[Model]
-        basicRequest.get(uri"$url").response(asJson[Json]).send[Task]
+        basicRequest.get(uri"$url").response(asJson[Company]).send[Task]
       }
       parsedBody <- IO.fromEither(response.body)
     } yield parsedBody
